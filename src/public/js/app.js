@@ -144,7 +144,7 @@ socket.on("answer", (answer) => {
 });
 
 socket.on("ice", (ice) => {
-    myPeerConnection.addICECandidate(ice);
+    myPeerConnection.addIceCandidate(ice);
 });
 
 
