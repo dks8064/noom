@@ -49,6 +49,11 @@ async function getMedia(deviceId) {
         myStream = await navigator.mediaDevices.getUserMedia(
             deviceId ? cameraConstrains : initialConstrains
         );
+
+        myStream
+        .getAudioTracks()
+        .forEach((track) => track.enabled = !muted);
+
         myFace.srcObject = myStream;
         if(!deviceId) {
             await getCameras();
