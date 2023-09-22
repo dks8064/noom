@@ -8,12 +8,11 @@ const cameraBtn = document.getElementById("camera");
 const camerasSelect = document.getElementById("cameras");
 
 let myStream;
-let muted = false;
+let micOff = false;
 let cameraOff = false;
 let roomName;
 let myPeerConnection;
 
-call.hidden = true;
 
 async function getCameras() {
     try{
@@ -50,9 +49,9 @@ async function getMedia(deviceId) {
             deviceId ? cameraConstrains : initialConstrains
         );
 
-        myStream
-        .getAudioTracks()
-        .forEach((track) => track.enabled = !muted);
+        setMic();
+        cameraOff = false;
+        setCamera();
 
         myFace.srcObject = myStream;
         if(!deviceId) {
@@ -63,30 +62,40 @@ async function getMedia(deviceId) {
     }
 }
 
-function handleMuteClick() {
-    myStream
-        .getAudioTracks()
-        .forEach((track) => track.enabled = !track.enabled);
+function setMic() {
+    // myStream
+    //     .getAudioTracks()
+    //     .forEach((track) => track.enabled = !micOff);
 
-    if(!muted) {
-        muteBtn.innerText = "Unmute";
+    if(micOff) {
+        muteBtn.style.backgroundColor = "gray";
     } else {
-        muteBtn.innerText = "Mute";
+        muteBtn.style.backgroundColor = "#118bee";
     }
-    muted = !muted;
+}
+
+function setCamera() {
+    // myStream
+    //     .getVideoTracks()
+    //     .forEach((track) => track.enabled = !cameraOff);
+
+    if(cameraOff) {
+        cameraBtn.style.backgroundColor = "gray";
+    } else {
+        cameraBtn.style.backgroundColor = "#118bee";
+    }
+}
+
+function setButtonByFlag(flag) {}
+
+function handleMuteClick() {
+    micOff = !micOff;
+    setMic();
 }
 
 function handleCameraClick() {
-    myStream
-        .getVideoTracks()
-        .forEach((track) => track.enabled = !track.enabled);
-
-    if(cameraOff) {
-        cameraBtn.innerText = "Turn Camera Off";
-    } else {
-        cameraBtn.innerText = "Turn Camera On";
-    }
     cameraOff = !cameraOff;
+    setCamera();
 }
 
 async function handleCameraChange() {

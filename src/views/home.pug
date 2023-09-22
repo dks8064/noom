@@ -7,17 +7,21 @@ html(lang="en")
     body 
         header
             h1 Noom 
-        main 
+        main
             div#welcome
-                form
-                    input(placeholer="room name", required, type="text")
+                form(style='margin:0 auto; text-align:center; width: 200px')
+                    input(placeholer="room name", required, type="text", maxlength="10", style='margin:10 auto')
                     button Enter Room
-            div#call 
-                div#mystream
+            div#call(style='display:none;')
+                div#mystream(style='text-align:center;')
                     video#myFace(autoplay, playsinline, width="400",height="400")
-                    button#mute Mute
-                    button#camera Turn Camera Off
-                    select#cameras
                     video#peerFace(autoplay, playsinline, width="400",height="400")
+                    div
+                        button#mute(style='border:0; width:120px; text-align:center;') Mic
+                        span  
+                        button#camera(style='border:0; width:120px; text-align:center;') Camera
+                    div 
+                        select#cameras(style='margin:0 auto;')
+                    
         script(src="/socket.io/socket.io.js")
         script(src="public/js/app.js")
